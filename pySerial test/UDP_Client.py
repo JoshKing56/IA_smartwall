@@ -5,7 +5,7 @@ import serial
 # Create a UDP socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-server_address = ('localhost', 10000)
+server_address = ('137.43.252.182', 10000)
 ser = serial.Serial('/dev/ttyACM0', 230400)
 
 def readPins():
