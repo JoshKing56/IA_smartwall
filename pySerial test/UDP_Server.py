@@ -5,15 +5,15 @@ import sys
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # Bind the socket to the port
-server_address = ('137.43.22.88', 10000)
+server_address = ('localhost', 10000)
 print('starting up on %s port %s' % server_address)
 sock.bind(server_address)
 
 while True:
-    #print('\nwaiting to receive message')
+    print('\nwaiting to receive message')
     data, address = sock.recvfrom(4096)
 
-    #print('received %s bytes from %s' % (len(data), address))
+    print('received %s bytes from %s' % (len(data), address))
     print(data.decode('utf-8').strip('\n'))
 
     if data:
