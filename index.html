@@ -1,0 +1,131 @@
+<!DOCTYPE=html>
+<html>
+    <head>
+
+    </head>
+    <body>
+        <div id='banner'>
+            <img src='./images/logo.png'>
+        </div>
+        <div class='container'>
+            <div class='item' id='item-1'>
+                <img src='./images/1.svg' id='item-1-img'>
+                <h1 id='item-1-title'>Test</h1>
+            </div>
+            <div class='item' id='item-2'>
+                <img src='./images/1.svg' id='item-2-img'>
+                <h1 id='item-2-title'>Test</h1>
+            </div>
+            <div id='anim' class = 'item'>
+                3
+            </div>
+        </div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            item_1 = document.getElementById('item-1')
+            item_2 = document.getElementById('item-2')
+            item_1_img = document.getElementById('item-1-img')
+            item_2_img = document.getElementById('item-2-img')
+            item_1_title = document.getElementById('item-1-title')
+            item_2_title = document.getElementById('item-2-title')
+            anim = document.getElementById('anim')
+
+            var socket = io();
+            socket.on('new_match', (msg) => {
+                item_1.classList.toggle('hide');
+
+                setTimeout(() => {
+                    item_2.classList.toggle('hide');
+                }, 200)
+                
+
+                setTimeout(() => {
+                    item_1_img.src = `./images/${msg.src.a}.svg`
+                    item_2_img.src = `./images/${msg.src.b}.svg`
+                    item_1_title.innerHTML = msg.ref.a
+                    item_2_title.innerHTML = msg.ref.b
+                    
+                    console.log(msg)
+
+                    item_1.classList.toggle('hide');
+                    
+                    setTimeout(() => {
+                        item_2.classList.toggle('hide');
+                    }, 200)
+                },1600)
+            })
+        </script>
+
+        <style>
+
+            body {
+                background-image: url("./images/bg.png");
+                background-clip: border-box;
+                background-size: 100%;
+
+                margin: 0;
+                padding: 0;
+            }
+
+            #banner {
+                width: 100%;
+                height: 80px;
+
+                box-shadow: 6px 6px 6px rgba(0,0,0,0.1);
+
+                background: white;
+            }
+
+            #banner img {
+                height: 60px;
+                margin: 10px 20px;
+            }
+
+            .container {
+
+                width: 100%;
+                height: 90%;
+
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+
+            }
+
+            .item {
+                width: 300px;
+                height: 500px;
+
+                margin: 50px;
+
+                background: rgba(256,2556,256,0.9);
+                box-shadow: 6px 6px 6px rgba(0,0,0,0.1);
+                border-radius: 20px;
+
+                transition: opacity 0.8s, transform 0.8s ease-in-out;
+
+                display: flex;
+                flex-direction: column;
+            }
+
+            .item img {
+                width: 300px;
+                height: 300px;
+
+                margin-top:70px;
+            }
+
+            .hide {
+                opacity: 0;
+                transform: translateY(400px);
+            }
+
+            h1 {
+                font-family: 'OpenDyslexicMono';
+                align-self: center;
+            }
+        </style>
+    </body>
+</html>
