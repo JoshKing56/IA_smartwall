@@ -137,3 +137,7 @@ venv.bak/
 # modules.xml
 # .idea/misc.xml
 # *.ipr
+
+Pipfile
+Pipfile.lock
+venv/*
