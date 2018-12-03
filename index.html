@@ -7,17 +7,20 @@
         <div id='banner'>
             <img src='./images/logo.png'>
         </div>
+        <div id='video' class='container'>
+            <h1>Video Goes Here</h1>
+        </div>
         <div class='container'>
             <div class='item' id='item-1'>
                 <img src='./images/1.svg' id='item-1-img'>
                 <h1 id='item-1-title'>Test</h1>
             </div>
+            <div id='anim' class='item'>
+                <h1 style='font-size: 140px'>?</h1>
+            </div>
             <div class='item' id='item-2'>
                 <img src='./images/1.svg' id='item-2-img'>
                 <h1 id='item-2-title'>Test</h1>
-            </div>
-            <div id='anim' class = 'item'>
-                3
             </div>
         </div>
 
@@ -25,6 +28,8 @@
         <script>
             item_1 = document.getElementById('item-1')
             item_2 = document.getElementById('item-2')
+            item_3 = document.getElementById('anim')
+            video_item = document.getElementById('video')
             item_1_img = document.getElementById('item-1-img')
             item_2_img = document.getElementById('item-2-img')
             item_1_title = document.getElementById('item-1-title')
@@ -33,7 +38,11 @@
 
             var socket = io();
             socket.on('new_match', (msg) => {
+                // Disappear before update
+                anim.innerHTML = `<h1 style='font-size: 140px'>?</h1>`
+
                 item_1.classList.toggle('hide');
+                video_item.classList.toggle('hide');
 
                 setTimeout(() => {
                     item_2.classList.toggle('hide');
@@ -43,16 +52,47 @@
                 setTimeout(() => {
                     item_1_img.src = `./images/${msg.src.a}.svg`
                     item_2_img.src = `./images/${msg.src.b}.svg`
+                    
                     item_1_title.innerHTML = msg.ref.a
                     item_2_title.innerHTML = msg.ref.b
                     
                     console.log(msg)
+                    
+                    // Reappear after update
 
                     item_1.classList.toggle('hide');
                     
                     setTimeout(() => {
                         item_2.classList.toggle('hide');
                     }, 200)
+
+                    // Slide together
+                    setTimeout(() => {
+                        item_1.classList.toggle('from-left')
+                        item_2.classList.toggle('from-right')
+
+                        // Bounce middle card
+                        setTimeout(()=>{
+                            item_3.classList.toggle('scale')
+                            setTimeout(()=>{
+                                item_3.classList.toggle('scale')
+                                
+                                //INSERT ANIMATION LEE LOI
+                                if (msg.src.c) {
+                                    anim.innerHTML = `<img src='./animations/${msg.src.c}.gif' id='item-1-img'><h1 style='font-size: 20px'>${msg.ref.c}</h1>`
+                                }
+                                //INSERT RUTH VIDEO
+                                setTimeout(()=>{
+                                    video_item.classList.toggle('hide');
+                                    item_1.classList.toggle('from-left')
+                                    item_2.classList.toggle('from-right')
+                                },6400)
+                            },1400)
+                        },1000)
+                    }, 4600)
+
+                    
+
                 },1600)
             })
         </script>
@@ -104,7 +144,7 @@
                 box-shadow: 6px 6px 6px rgba(0,0,0,0.1);
                 border-radius: 20px;
 
-                transition: opacity 0.8s, transform 0.8s ease-in-out;
+                transition: opacity 1.4s, transform 1.2s ease-in-out;
 
                 display: flex;
                 flex-direction: column;
@@ -122,9 +162,55 @@
                 transform: translateY(400px);
             }
 
+            .from-left {
+                transform: translateX(250px);
+                opacity: 0;
+            }
+            
+            .from-right {
+                transform: translateX(-250px);
+                opacity: 0;
+            }
+
+            .scale {
+                transform: scale(1.05);
+            }
+
+            .bounce {
+                animation: bounce;
+                animation-duration: 0.8s;
+                animation-timing-function: ease-in-out;
+                animation-iteration-count: 1;
+            }
+
             h1 {
                 font-family: 'OpenDyslexicMono';
                 align-self: center;
+            }
+
+            #anim {
+                justify-content: center;
+            }
+
+            #video {
+                position: absolute;
+                z-index: 100;
+                width: 97%;
+                height: 90%;
+
+                margin: 10px 15px;
+
+                background: rgba(256,2556,256,0.99);
+                box-shadow: 6px 6px 6px rgba(0,0,0,0.1);
+                border-radius: 20px;
+
+                display: flex;
+                flex-direction: column;
+
+                justify-content: center;
+                font-size: 50px;
+
+                transition: opacity 1s, transform 0.8s ease-in-out;
             }
         </style>
     </body>
