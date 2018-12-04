@@ -1,5 +1,8 @@
 {
-    "9+11":{"src": "anim-arteries", "msg":"Printed Arteries"},
-    "9+7": {"src":"anim-saul-bot", "msg":"Saul Bot"},
-    "9+8": ""
+    "8+7":{"src": "anim-arteries", "msg":"Printed Arteries"},
+    "8+11": {"src":"anim-saul-bot", "msg":"Saul Bot"},
+    "8+9": {"src":"anim-drone", "msg":"Personalised Drones"},
+    "7+8":{"src": "anim-arteries", "msg":"Printed Arteries"},
+    "11+8": {"src":"anim-saul-bot", "msg":"Saul Bot"},
+    "9+8": {"src":"anim-drone", "msg":"Personalised Drones"}
 }
