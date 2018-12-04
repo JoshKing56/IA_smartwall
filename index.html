@@ -53,6 +53,8 @@
                     item_1_img.src = `./images/${msg.src.a}.svg`
                     item_2_img.src = `./images/${msg.src.b}.svg`
                     
+                    video_item.innerHTML = `<h1>Video Goes Here</h1>`
+
                     item_1_title.innerHTML = msg.ref.a
                     item_2_title.innerHTML = msg.ref.b
                     
@@ -81,8 +83,17 @@
                                 if (msg.src.c) {
                                     anim.innerHTML = `<img src='./animations/${msg.src.c}.gif' id='item-1-img'><h1 style='font-size: 20px'>${msg.ref.c}</h1>`
                                 }
+
+                                if (msg.src.c) {
+                                    anim.innerHTML = `<img src='./animations/${msg.src.c}.gif' id='item-1-img'><h1 style='font-size: 20px'>${msg.ref.c}</h1>`
+                                    
+                                    video_item.innerHTML = `<video src='./animations/${msg.src.c}.m4v'>`
+                                }
                                 //INSERT RUTH VIDEO
                                 setTimeout(()=>{
+                                    if (msg.src.c) {
+                                        video_item.children[0].play()
+                                    }
                                     video_item.classList.toggle('hide');
                                     item_1.classList.toggle('from-left')
                                     item_2.classList.toggle('from-right')
@@ -211,6 +222,11 @@
                 font-size: 50px;
 
                 transition: opacity 1s, transform 0.8s ease-in-out;
+            }
+
+            #video video {
+                width: 90%;
+                height: 90%;
             }
         </style>
     </body>
